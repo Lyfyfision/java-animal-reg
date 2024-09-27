@@ -1,5 +1,6 @@
 package org.animalreg.engine;
 
+import lombok.extern.slf4j.Slf4j;
 import org.animalreg.exceptions.AnimalParseException;
 import org.animalreg.model.Animal;
 
@@ -8,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 public class DataReader {
     public List<Animal> readAnimals(String filePath) throws AnimalParseException {
         List<Animal> animals = new ArrayList<>();
@@ -17,15 +18,15 @@ public class DataReader {
             for (String line : lines) {
                 String[] properties = line.split(",");
                 if (properties.length != 3) {
-                    throw new AnimalParseException("Неверное количество свойств в строке: " + line);
+                    log.error("Неверное количество свойств в строке: " + line);
+                    throw new AnimalParseException("");
                 }
-                String weight = properties[0].trim();
-                String height = properties[1].trim();
-                String type = properties[2].trim();
-                animals.add(new Animal(weight, height, type));
+                List<String> params = List.of(properties[0].trim(), properties[1].trim(), properties[2].trim());
+                animals.add(new Animal(params));
             }
         } catch (IOException e) {
-            throw new AnimalParseException("Ошибка при чтении файла: " + e.getMessage(), e);
+            log.error("Ошибка при чтении файла: " + e.getMessage(), e);
+            throw new AnimalParseException("");
         }
         return animals;
     }

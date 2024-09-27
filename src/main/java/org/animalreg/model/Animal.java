@@ -1,12 +1,17 @@
 package org.animalreg.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.util.List;
 
-@AllArgsConstructor
-@Getter
-public class Animal {
-    private String weight;
-    private String height;
-    private String type;
+public record Animal(List<String> properties) {
+    public String getWeight() {
+        return properties.get(0);
+    }
+
+    public String getHeight() {
+        return properties.get(1);
+    }
+
+    public String getType() {
+        return properties.get(2);
+    }
 }

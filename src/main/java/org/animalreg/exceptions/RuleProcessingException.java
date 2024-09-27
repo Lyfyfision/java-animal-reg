@@ -1,6 +1,6 @@
 package org.animalreg.exceptions;
 
-public class RuleProcessingException extends Exception{
+public class RuleProcessingException extends RuntimeException {
     public RuleProcessingException(String message) {
         super(message);
     }

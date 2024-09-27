@@ -1,6 +1,6 @@
 package org.animalreg.exceptions;
 
-public class AnimalParseException extends Exception{
+public class AnimalParseException extends RuntimeException{
     public AnimalParseException(String message) {
         super(message);
     }
