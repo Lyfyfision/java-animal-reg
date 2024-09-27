@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 @Slf4j
 public class DataReader {
@@ -21,8 +22,7 @@ public class DataReader {
                     log.error("Неверное количество свойств в строке: " + line);
                     throw new AnimalParseException("");
                 }
-                List<String> params = List.of(properties[0].trim(), properties[1].trim(), properties[2].trim());
-                animals.add(new Animal(params));
+                animals.add(new Animal(Arrays.asList(properties)));
             }
         } catch (IOException e) {
             log.error("Ошибка при чтении файла: " + e.getMessage(), e);

@@ -15,8 +15,8 @@ public class RuleEngineResult {
         this.ruleCounts = new HashMap<>();
     }
 
-    public void setRuleCounter(String ruleName, int count) {
-        ruleCounts.put(ruleName, count);
+    public void addSuccessfulRule(String rule) {
+        ruleCounts.put(rule, ruleCounts.getOrDefault(rule, 0) + 1);
     }
 
     @Override
