@@ -1,7 +1,8 @@
 
+
 # Animal registration
 
-As mentioned above, this is a simple animal registration data-matching system that is based on counting matches between data and required rules
+This is a simple animal registration data-matching system that counts matches between data and required rules.
 
 
 ## Built with
@@ -9,41 +10,48 @@ As mentioned above, this is a simple animal registration data-matching system th
 - MVEL
 - GraalVM
 - JUnit 5
-## Source Code Review
-Source code for the example is located in /src/main/java/org/animalreg/engine. All the files required to run the app reside in /src/main/resources The followings overview of how it communicates with each other:
+## Source Code Overview
+The source code for the application is located in `/src/main/java/org/animalreg/`. All files required to run the application are in `/src/main/resources`. The following is an overview of how the components interact with each other:
 
-1. Take a JSON file with rules and .txt file with animals than 
-read them with DataReader and RuleReader classes.
-```bash
-  ...
-  animals.add(new Animal(Arrays.asList(properties)));
+1. Data Input: The system reads a JSON file containing rules and a .txt file with animal data using the `DataReader` and `RuleReader` classes. The expected format for the `animals.txt` file is as follows:
 
-  ....
-  return gson.fromJson(reader, new TypeToken<List<Rule>>() {
-  }.getType());
 ```
-2. Verification of rules and applying them on animals in RuleEngine.class with MVEL or GraalVM libs:
-```bash
-  ...
-  return (Boolean) MVEL.eval(condition, context);
-
-  ...
-  if (evaluateCondition(animal, rule.condition())) {
-  result.addSuccessfulRule(rule.name());
-  }
+ЛЕГКОЕ,МАЛЕНЬКОЕ,ВСЕЯДНОЕ 
+ТЯЖЕЛОЕ,МАЛЕНЬКОЕ,ТРАВОЯДНОЕ 
+ТЯЖЕЛОЕ,НЕВЫСОКОЕ,ТРАВОЯДНОЕ
 ```
-3. Take a result (A hashmap inside RuleEngineResult.class) and show a counter of matches with rules
-```bash
+Each line contains comma-separated values representing the attributes of an animal: weight, height, and type.
+
+The expected format for the rules specified in the `rules.json` file is as follows:
+```
+   [
+     { "name": "Count Herbivores", "condition": "type == 'HERBIVORE'" },
+     { "name": "Count Small Herbivores or Carnivores", "condition": "type == 'HERBIVORE' || type == 'CARNIVORE' && height == 'SMALL'" },
+     { "name": "Count Omnivores not Tall", "condition": "type == 'OMNIVORE' && height != 'TALL'" }
+   ]
+```
+Each rule includes a name and a condition to evaluate.
+
+2. Rule Verification: The `RuleEngine` class verifies the rules and applies them to the animals using the MVEL or GraalVM libraries:
+```
+    return (Boolean) MVEL.eval(condition, context);
+
+    if (evaluateCondition(animal, rule.condition())) {
+        result.addSuccessfulRule(rule.name());
+    }
+```
+3. Results: The results are stored in a hashmap inside the `RuleEngineResult` class, which shows the count of matches with the rules:
+```
   System.out.println(ruleEngine.applyRules(animals));
 ```
 For example, this is output to the console when the input data is correct:
-```bash
+```
   [Count Herbivores=3, Count Small Herbivores or Carnivores=5, Count Omnivores not Tall=2]
 
 ```
 
+It is also worth noting that it is possible to implement this application without using external libraries such as MVEL for evaluation, by writing your own simple expression evaluator.
 
-It is also worth noting that it is possible to make such a program without using external libraries such MVEL for evaluating, by writing your own simple Expression Evaluator. 
 
 
 
