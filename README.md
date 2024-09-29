@@ -25,9 +25,9 @@ Each line contains comma-separated values representing the attributes of an anim
 The expected format for the rules specified in the `rules.json` file is as follows:
 ```
    [
-     { "name": "Count Herbivores", "condition": "type == 'HERBIVORE'" },
-     { "name": "Count Small Herbivores or Carnivores", "condition": "type == 'HERBIVORE' || type == 'CARNIVORE' && height == 'SMALL'" },
-     { "name": "Count Omnivores not Tall", "condition": "type == 'OMNIVORE' && height != 'TALL'" }
+     { "name": "Count Herbivores", "condition": "type == 'ТРАВОЯДНОЕ'" },
+     { "name": "Count Small Herbivores or Carnivores", "condition": "type == 'ТРАВОЯДНОЕ' || type == 'ПЛОТОЯДНОЕ' && height == 'МАЛЕНЬКОЕ'" },
+     { "name": "Count Omnivores not Tall", "condition": "type == 'ВСЕЯДНОЕ' && height != 'ВЫСОКОЕ'" }
    ]
 ```
 Each rule includes a name and a condition to evaluate.
