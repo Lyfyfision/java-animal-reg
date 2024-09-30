@@ -26,7 +26,7 @@ The expected format for the rules specified in the `rules.json` file is as follo
 ```
    [
      { "name": "Count Herbivores", "condition": "type == 'ТРАВОЯДНОЕ'" },
-     { "name": "Count Small Herbivores or Carnivores", "condition": "type == 'ТРАВОЯДНОЕ' || type == 'ПЛОТОЯДНОЕ' && height == 'МАЛЕНЬКОЕ'" },
+     { "name": "Count Small Herbivores or Carnivores", "condition": "(type == 'ТРАВОЯДНОЕ' || type == 'ПЛОТОЯДНОЕ') && height == 'МАЛЕНЬКОЕ'" },
      { "name": "Count Omnivores not Tall", "condition": "type == 'ВСЕЯДНОЕ' && height != 'ВЫСОКОЕ'" }
    ]
 ```
