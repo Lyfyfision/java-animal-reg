@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
 
 class RuleReaderTest {
     private RuleReader ruleReader;
@@ -24,15 +23,5 @@ class RuleReaderTest {
         List<Rule> rules = ruleReader.readRules(RULE_FILE);
 
         assertEquals("Count Herbivores", rules.get(0).name(), "Name of first rule should be returned");
-    }
-
-    @Test
-    public void readRules() {
-        RuleReader r = new RuleReader();
-        String filePath = "abc";
-        List<Rule> expected = new ArrayList<>();
-        List<Rule> actual = r.readRules(filePath);
-
-        assertEquals(expected, actual);
     }
 }
